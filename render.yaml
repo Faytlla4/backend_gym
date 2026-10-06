@@ -1,0 +1,30 @@
+# Blueprint for Render (render.com → New → Blueprint → pilih repo ini).
+# API key TIDAK ada di file ini: Render akan meminta AI_PROVIDER_API_KEY
+# saat deploy (sync: false) — key hanya tersimpan di dashboard Render.
+services:
+  - type: web
+    name: evolution100-ai-backend
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    plan: free
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: AI_PROVIDER_MODEL
+        value: gemini-3-flash-preview
+      - key: RATE_LIMIT_MAX
+        value: "60"
+      - key: RATE_LIMIT_WINDOW_MS
+        value: "60000"
+      - key: MAX_IMAGE_SIZE
+        value: "5242880"
+      - key: REQUEST_TIMEOUT_MS
+        value: "25000"
+      - key: MAX_COACH_MESSAGE_LENGTH
+        value: "500"
+      - key: AI_OUTPUT_LIMIT
+        value: "500"
+      - key: AI_PROVIDER_API_KEY
+        sync: false
